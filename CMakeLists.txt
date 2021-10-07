@@ -32,3 +32,8 @@ target_compile_options(
 		$<$<CXX_COMPILER_ID:MSVC>:/std:c++latest /W4 /WX>
 		$<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-std=c++2a -Wall -Wextra -Wpedantic -Werror>
 )
+
+install(
+		TARGETS ${PROJECT_NAME}
+		EXPORT ${PROJECT_NAME}-target
+)
