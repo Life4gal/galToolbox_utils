@@ -6,9 +6,11 @@
 #include <limits>
 #include <type_traits>
 
+#include <utils/macro.hpp>
+
 namespace gal::toolbox::utils
 {
-	struct random_trait
+	struct GAL_EXPORT random_trait
 	{
 		using bits64_type						  = std::uint64_t;
 		using bits32_type						  = std::uint32_t;
@@ -65,7 +67,7 @@ namespace gal::toolbox::utils
 	 * Original implementation: http://prng.di.unimi.it/splitmix64.c
 	 */
 	template<generated_type T>
-	struct seed_generator final
+	struct GAL_EXPORT seed_generator final
 	{
 		using result_type = typename T::result_type;
 		using state_type  = typename T::state_type;
@@ -98,7 +100,7 @@ namespace gal::toolbox::utils
 	};
 
 	template<generated_type T>
-	class engine_base
+	class GAL_EXPORT engine_base
 	{
 	public:
 		using result_type				   = typename T::result_type;
@@ -177,7 +179,7 @@ namespace gal::toolbox::utils
 		}
 	};
 
-	class engine64_x4_base : public engine_base<random_trait::bits64_generator<4>>
+	class GAL_EXPORT engine64_x4_base : public engine_base<random_trait::bits64_generator<4>>
 	{
 	public:
 		using engine_base::engine_base;
@@ -242,7 +244,7 @@ namespace gal::toolbox::utils
 		}
 	};
 
-	class engine32_x4_base : public engine_base<random_trait::bits32_generator<4>>
+	class GAL_EXPORT engine32_x4_base : public engine_base<random_trait::bits32_generator<4>>
 	{
 	public:
 		using engine_base::engine_base;
@@ -298,7 +300,7 @@ namespace gal::toolbox::utils
 		}
 	};
 
-	class engine64_x2_base : public engine_base<random_trait::bits64_generator<2>>
+	class GAL_EXPORT engine64_x2_base : public engine_base<random_trait::bits64_generator<2>>
 	{
 	public:
 		using engine_base::engine_base;
@@ -352,7 +354,7 @@ namespace gal::toolbox::utils
 	 * Footprint: 32 bytes
 	 * Original implementation: http://prng.di.unimi.it/xoshiro256plus.c
 	 */
-	class xor_shift_rotate_256_plus_engine final : public engine64_x4_base
+	class GAL_EXPORT xor_shift_rotate_256_plus_engine final : public engine64_x4_base
 	{
 	public:
 		using engine64_x4_base::engine64_x4_base;
@@ -369,7 +371,7 @@ namespace gal::toolbox::utils
 	 * Footprint: 32 bytes
 	 * Original implementation: http://prng.di.unimi.it/xoshiro256plusplus.c
 	 */
-	class xor_shift_rotate_256_plus_plus_engine final : public engine64_x4_base
+	class GAL_EXPORT xor_shift_rotate_256_plus_plus_engine final : public engine64_x4_base
 	{
 	public:
 		using engine64_x4_base::engine64_x4_base;
@@ -386,7 +388,7 @@ namespace gal::toolbox::utils
 	 * Footprint: 32 bytes
 	 * Original implementation: http://prng.di.unimi.it/xoshiro256starstar.c
 	 */
-	class xor_shift_rotate_256_star_star_engine final : public engine64_x4_base
+	class GAL_EXPORT xor_shift_rotate_256_star_star_engine final : public engine64_x4_base
 	{
 	public:
 		using engine64_x4_base::engine64_x4_base;
@@ -403,7 +405,7 @@ namespace gal::toolbox::utils
 	 * Footprint: 16 bytes
 	 * Original implementation: http://prng.di.unimi.it/xoshiro128plus.c
 	 */
-	class xor_shift_rotate_128_plus_engine final : public engine32_x4_base
+	class GAL_EXPORT xor_shift_rotate_128_plus_engine final : public engine32_x4_base
 	{
 	public:
 		using engine32_x4_base::engine32_x4_base;
@@ -420,7 +422,7 @@ namespace gal::toolbox::utils
 	 * Footprint: 16 bytes
 	 * Original implementation: http://prng.di.unimi.it/xoshiro128plusplus.c
 	 */
-	class xor_shift_rotate_128_plus_plus_engine final : public engine32_x4_base
+	class GAL_EXPORT xor_shift_rotate_128_plus_plus_engine final : public engine32_x4_base
 	{
 	public:
 		using engine32_x4_base::engine32_x4_base;
@@ -437,7 +439,7 @@ namespace gal::toolbox::utils
 	 * Footprint: 16 bytes
 	 * Original implementation: http://prng.di.unimi.it/xoshiro128starstar.c
 	 */
-	class xor_shift_rotate_128_star_star_engine final : public engine32_x4_base
+	class GAL_EXPORT xor_shift_rotate_128_star_star_engine final : public engine32_x4_base
 	{
 	public:
 		using engine32_x4_base::engine32_x4_base;
@@ -454,7 +456,7 @@ namespace gal::toolbox::utils
 	 * Footprint: 16 bytes
 	 * Original implementation: http://prng.di.unimi.it/xoroshiro128plus.c
 	 */
-	class xor_rotate_shift_rotate_128_plus_engine final : public engine64_x2_base
+	class GAL_EXPORT xor_rotate_shift_rotate_128_plus_engine final : public engine64_x2_base
 	{
 	public:
 		using engine64_x2_base::engine64_x2_base;
@@ -482,7 +484,7 @@ namespace gal::toolbox::utils
 	 * Footprint: 16 bytes
 	 * Original implementation: http://prng.di.unimi.it/xoroshiro128plusplus.c
 	 */
-	class xor_rotate_shift_rotate_128_plus_plus_engine final : public engine64_x2_base
+	class GAL_EXPORT xor_rotate_shift_rotate_128_plus_plus_engine final : public engine64_x2_base
 	{
 	public:
 		using engine64_x2_base::engine64_x2_base;
@@ -544,7 +546,7 @@ namespace gal::toolbox::utils
 	 * Footprint: 16 bytes
 	 * Original implementation: http://prng.di.unimi.it/xoroshiro128starstar.c
 	 */
-	class xor_rotate_shift_rotate_128_star_star_engine final : public engine64_x2_base
+	class GAL_EXPORT xor_rotate_shift_rotate_128_star_star_engine final : public engine64_x2_base
 	{
 	public:
 		using engine64_x2_base::engine64_x2_base;
