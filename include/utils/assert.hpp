@@ -10,11 +10,10 @@ using std_source_location = std::experimental::source_location;
 
 #include <iostream>
 #include <string_view>
-#include <utils/macro.hpp>
 
 namespace gal::toolbox::utils
 {
-	void GAL_EXPORT gal_assert(
+	void gal_assert(
 			bool					   condition,
 			std::string_view		   message	= {"no details"},
 			const std_source_location& location = std_source_location::current()) noexcept;

@@ -8,7 +8,7 @@
 
 namespace gal::toolbox::utils
 {
-	void GAL_EXPORT gal_assert(
+	void gal_assert(
 			bool					   condition,
 			std::string_view		   message,
 			const std_source_location& location) noexcept

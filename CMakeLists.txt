@@ -27,11 +27,9 @@ if(${BUILD_AS_SHARED})
 			SHARED
 			${${PROJECT_NAME}_SOURCE}
 	)
-	target_compile_definitions(
-			${PROJECT_NAME}
-			PRIVATE
-			GALTOOLBOX_NEED_EXPORT
-	)
+	if(MSVC)
+		set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
+	endif()
 else()
 	message("${PROJECT_NAME} info: build ${PROJECT_NAME} as a static module.")
 	add_library(
