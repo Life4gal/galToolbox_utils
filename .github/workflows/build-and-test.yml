@@ -15,20 +15,13 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                platform: [x64]
-#                os: [ ubuntu-latest, windows-latest, macos-latest ] # ubuntu use gcc9, macos apple-clang seems has some bugs
+                platform: [ x64 ]
+                # os: [ ubuntu-latest, windows-latest, macos-latest ] # ubuntu use gcc9, macos apple-clang seems has some bugs
                 os: [ windows-latest ]
-                configuration:
-                    - Debug
-                    - Release
-                    - MinSizeRel
-                    - RelWithDebInfo
+                configuration: [ Debug, Release, MinSizeRel, RelWithDebInfo ]
                 exclude:
                     -   os: windows-latest
-                        configuration:
-                            - Release # command line error D8016: '/O2' and '/RTC1' command-line options are incompatible
-                            - MinSizeRel # command line error D8016: '/O2' and '/RTC1' command-line options are incompatible
-                            - RelWithDebInfo # command line error D8016: '/O2' and '/RTC1' command-line options are incompatible
+                        configuration: [ Release, MinSizeRel, RelWithDebInfo ] # command line error D8016: '/O2' and '/RTC1' command-line options are incompatible
         
         steps:
             -   name: Checkout Code
