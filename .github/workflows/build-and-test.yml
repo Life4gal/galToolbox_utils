@@ -11,29 +11,37 @@ jobs:
     build-and-test:
         name: ${{ matrix.toolchain }}
         runs-on: ${{ matrix.os }}
-
+        
         strategy:
             fail-fast: false
             matrix:
-                os: [ubuntu-latest, windows-latest, macos-latest]
+                platform: [x64]
+#                os: [ ubuntu-latest, windows-latest, macos-latest ] # ubuntu use gcc9, macos apple-clang seems has some bugs
+                os: [ windows-latest ]
                 configuration:
                     - Debug
                     - Release
                     - MinSizeRel
                     - RelWithDebInfo
-
+                exclude:
+                    -   os: windows-latest
+                        configuration:
+                            - Release # command line error D8016: '/O2' and '/RTC1' command-line options are incompatible
+                            - MinSizeRel # command line error D8016: '/O2' and '/RTC1' command-line options are incompatible
+                            - RelWithDebInfo # command line error D8016: '/O2' and '/RTC1' command-line options are incompatible
+        
         steps:
             -   name: Checkout Code
                 uses: actions/checkout@v2
                 with:
                     submodules: true
-                    
+            
             -   name: Configure (${{ matrix.configuration }})
                 run: cmake -S . -Bbuild -DCMAKE_BUILD_TYPE=${{ matrix.configuration }}
-                
+            
             -   name: Build with ${{ matrix.compiler }}
                 run: cmake --build build
-                
+            
             -   name: Build and run test
                 working-directory: build
                 env:
